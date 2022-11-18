@@ -10,7 +10,7 @@ const ContactForm = () => {
                 <form className="card flex-shrink-0 w-full shadow-2xl">
                     <h5 className='text-primary font-bold text-center'>Contact Us</h5>
                     <h2 className='text-white text-4xl text-center'>Stay connected with us</h2>
-                    <div className="card-body">
+                    <div className="card-body dark:text-slate-900">
                         <div className="form-control">
                             <input type="text" placeholder="Email Address" className="input input-bordered" />
                         </div>

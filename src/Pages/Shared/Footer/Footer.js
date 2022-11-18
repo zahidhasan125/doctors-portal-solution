@@ -24,6 +24,7 @@ const Footer = () => {
                     <Link to='/' className="link link-hover">Terms of use</Link>
                     <Link to='/' className="link link-hover">Privacy policy</Link>
                     <Link to='/' className="link link-hover">Cookie policy</Link>
+                    <Link to='/days' className="link link-hover">Day Picker Examples</Link>
                 </div>
             </footer>
             <div>

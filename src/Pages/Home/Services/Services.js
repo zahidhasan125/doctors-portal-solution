@@ -42,7 +42,7 @@ const Services = () => {
             </div>
 
             <div className="hero container">
-                <div className="flex flex-col lg:flex-row">
+                <div className="flex flex-col lg:flex-row lg:justify-center">
                     <img src={treatment} className="lg:w-1/3 rounded-lg shadow-2xl" alt='treatment' />
                     <div className='lg:w-1/2 font-bold mt-32 px-14 text-start'>
                         <h1 className="text-5xl font-bold">Exceptional Dental Care, on Your Terms</h1>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layouts/Main/Main";
 import Appointment from "../Pages/Appointment/Appointment/Appointment";
+import DayPickerExample from "../Pages/Appointment/AppointmentBanner/DayPickerExample";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
             {
                 path: '/appointment',
                 element: <Appointment></Appointment>
+            },
+            {
+                path: '/days',
+                element: <DayPickerExample></DayPickerExample>
             }
         ]
     },
