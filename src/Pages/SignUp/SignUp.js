@@ -27,21 +27,21 @@ const SignUp = () => {
     }
     return (
         <div className='h-[480px] flex flex-col justify-center items-center'>
-            <div className='w-96 px-6'>
+            <div className='w-96 p-6 dark:bg-slate-800 rounded-xl'>
                 <h2 className='text-xl font-bold text-center'>Sign Up</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
-                    <div className="form-control w-full">
-                        <label className="label"><span className="label-text">Name</span></label>
+                    <div className="form-control w-full dark:text-black">
+                        <label className="label"><span className="label-text dark:text-white">Name</span></label>
                         <input type="text" {...register('name', { required: "Name is required." })} className="input input-sm input-bordered w-full" />
                         {errors.name && <p className='text-red-700 font-bold'>{errors.name?.message}</p>}
                     </div>
-                    <div className="form-control w-full">
-                        <label className="label"><span className="label-text">Email</span></label>
+                    <div className="form-control w-full dark:text-black">
+                        <label className="label"><span className="label-text dark:text-white">Email</span></label>
                         <input type="email" {...register('email', { required: "Email is required." })} className="input input-sm input-bordered w-full" />
                         {errors.email && <p className='text-red-700 font-bold'>{errors.email?.message}</p>}
                     </div>
-                    <div className="form-control w-full">
-                        <label className="label"><span className="label-text">Password</span></label>
+                    <div className="form-control w-full dark:text-black">
+                        <label className="label"><span className="label-text dark:text-white">Password</span></label>
                         <input type="password" {...register('password', { required: "Password is required.", minLength: { value: 6, message: 'Password must be at least 6 characters or longer.' }, pattern: { value: /(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])/, message: "Password is weak." } })} className="input input-sm input-bordered w-full" />
                         {errors.password && <p className='text-red-700 font-bold'>{errors.password?.message}</p>}
                         {signUpError && <p className='text-red-700 font-bold'>{signUpError?.split('/')[1].slice(0, -2)}</p>}
@@ -51,7 +51,7 @@ const SignUp = () => {
                 </form>
                 <p>Already have an account? <Link to='/login' className='text-secondary'>Please Login</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline btn-sm w-full'>CONTINUE WITH GOOGLE</button>
+                <button className='btn btn-outline btn-sm w-full dark:text-white'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

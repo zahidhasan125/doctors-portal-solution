@@ -1,12 +1,15 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
+const googleProvider = new GoogleAuthProvider();
 const Login = () => {
+
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { login } = useContext(AuthContext);
+    const { login, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
@@ -24,6 +27,18 @@ const Login = () => {
             .catch(err => setLoginError(err.message))
     }
 
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                // const user = result.user;
+                toast.success('Successfully Logged In')
+            })
+            .catch(err => {
+                toast.error(err.message.split('/')[1].slice(0,-2))
+            })
+    }
+
+
     return (
         <div className='h-[480px] flex flex-col justify-center items-center'>
             <div className='w-96 p-6 dark:bg-slate-800 rounded-xl'>
@@ -38,14 +53,14 @@ const Login = () => {
                         <label className="label"><span className="label-text dark:text-white">Password</span></label>
                         <input type="password" {...register("password", { required: 'Password is required.', minLength: { value: 6, message: 'Password must be at least 6 character or longer.' } })} className="input input-sm input-bordered w-full" />
                         {errors.password && <p className='text-red-700'>{errors.password?.message}</p>}
-                        <label className="label"><span className="label-text dark:text-white">Forget password?</span></label>
+                        <Link to="/forget"><label className="label"><span className="label-text dark:text-white cursor-pointer">Forget password?</span></label></Link>
                     </div>
                     {loginError && <p className='text-red-700 font-bold'>{loginError?.split('/')[1].slice(0, -2)}</p>}
                     <input className="btn btn-sm w-full my-2 text-white" type='submit' value='Login' />
                 </form>
                 <p>New to Doctors Portal? <Link to='/signup' className='text-secondary'>Create new account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline btn-sm w-full dark:text-white'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline btn-sm w-full dark:text-white'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );

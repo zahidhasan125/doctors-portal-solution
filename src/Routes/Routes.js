@@ -4,6 +4,7 @@ import Appointment from "../Pages/Appointment/Appointment/Appointment";
 import DayPickerExample from "../Pages/Appointment/AppointmentBanner/DayPickerExample";
 import Dashboard from "../Pages/Dashboard/Dashboard/Dashboard";
 import Home from "../Pages/Home/Home/Home";
+import ForgetPassword from "../Pages/Login/ForgetPassword/ForgetPassword";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: '/forget',
+                element: <ForgetPassword></ForgetPassword>
             },
             {
                 path: '/appointment',
