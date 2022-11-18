@@ -1,8 +1,9 @@
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
-const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
+const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
     const { name, slots } = treatment;
     const { user } = useContext(AuthContext)
     const appointmentDate = format(selectedDate, 'PP');
@@ -12,8 +13,8 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
         const slot = form.slot.value;
         const patientName = form.name.value;
         const email = form.email.value;
-        const phone = form.email.value;
-        const info = {
+        const phone = form.phone.value;
+        const booking = {
             treatment: name,
             appointmentDate,
             slot,
@@ -21,8 +22,28 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
             email,
             phone
         }
-        console.log(info);
-        setTreatment(null);
+
+        fetch('http://localhost:5000/booking', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Appointment successfully booked.', {
+                        duration: 8000
+                    })
+                    refetch();
+                    setTreatment(null);
+                }
+                else {
+                    toast.error(data.message)
+                }
+            })
+
     }
     return (
         <>
@@ -33,8 +54,8 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
                     <h3 className="text-lg font-bold mb-6">{name}</h3>
                     <form onSubmit={handleBooking}>
                         <input type="text" value={appointmentDate} className="input input-bordered input-md w-full mb-4 text-base" disabled />
-                        <select name='slot' className="select select-bordered select-md w-full mb-4 text-base" defaultValue={'Default'}>
-                            <option disabled value='Default'>Select a time slot</option>
+                        <select name='slot' className="select select-bordered select-md w-full mb-4 text-base" defaultValue={'Select a time slot'}>
+                            {/* <option disabled value='Default'>Select a time slot</option> */}
                             {
                                 slots.map((slot, idx) => <option key={idx} value={slot}>{slot}</option>)
                             }

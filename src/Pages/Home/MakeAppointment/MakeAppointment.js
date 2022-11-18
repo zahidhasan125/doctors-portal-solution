@@ -6,7 +6,7 @@ import PrimaryBtn from '../../../components/PrimaryBtn/PrimaryBtn';
 const MakeAppointment = () => {
     return (
         <div className="hero mt-32" style={{background: `url(${appointment})`}}>
-            <div className="hero-content flex-col lg:flex-row">
+            <div className="hero-content flex-col pb-0 lg:flex-row">
                 <img src={doctor} alt='appointment' className="hidden md:block lg:w-1/2 -mt-24 rounded-lg shadow-2xl" />
                 <div>
                     <h4 className='text-primary font-bold'>Appointment</h4>
