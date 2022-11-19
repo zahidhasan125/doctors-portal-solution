@@ -31,7 +31,8 @@ const Login = () => {
         providerLogin(googleProvider)
             .then(result => {
                 // const user = result.user;
-                toast.success('Successfully Logged In')
+                toast.success('Successfully Logged In');
+                navigate(from, { replace: true });
             })
             .catch(err => {
                 toast.error(err.message.split('/')[1].slice(0,-2))
