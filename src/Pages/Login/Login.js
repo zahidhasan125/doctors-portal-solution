@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const googleProvider = new GoogleAuthProvider();
 const Login = () => {
@@ -11,18 +12,25 @@ const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { login, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
+    const [loggedInUserEmail, setLoggedInUserEmail] = useState('')
+    const [token] = useToken(loggedInUserEmail);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(from, { replace: true });
+    }
+
     const handleLogin = data => {
-        console.log(data);
         setLoginError('')
         login(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setLoggedInUserEmail(data.email);
                 toast.success('Logged in Successfully.');
-                navigate(from, { replace: true });
+
             })
             .catch(err => setLoginError(err.message))
     }
@@ -30,12 +38,12 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         providerLogin(googleProvider)
             .then(result => {
-                // const user = result.user;
-                toast.success('Successfully Logged In');
-                navigate(from, { replace: true });
+                const user = result.user;
+                setLoggedInUserEmail(user.email);
+                toast.success('Successfully Logged In with GOOGLE');
             })
             .catch(err => {
-                toast.error(err.message.split('/')[1].slice(0,-2))
+                toast.error(err.message.split('/')[1].slice(0, -2))
             })
     }
 

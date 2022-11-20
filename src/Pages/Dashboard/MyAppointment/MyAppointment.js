@@ -5,12 +5,17 @@ import Loading from '../../Shared/Loading/Loading';
 
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
-    const url = `http://localhost:5000/booking?email=${user?.email}`
+
+    const url = `http://localhost:5000/bookings?email=${user?.email}`
 
     const { data: bookings = [], isLoading } = useQuery({
-        queryKey: ['booking', user?.email],
+        queryKey: ['bookings', user?.email],
         queryFn: async () => {
-            const res = await fetch(url);
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
